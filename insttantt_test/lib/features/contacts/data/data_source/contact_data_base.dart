@@ -44,7 +44,6 @@ class ContactDatabase {
         ${ContactFields.id} $idType,
         ${ContactFields.name} $textType,
         ${ContactFields.identification} $intType
-       
       )
       ''');
   }

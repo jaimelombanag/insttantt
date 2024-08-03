@@ -15,7 +15,7 @@ class SplashController extends SimpleNotifier {
     Future.delayed(const Duration(milliseconds: 4000), () async {
       // final user = await _authRepository.user;
       // _routeName = user != null ? Routes.HOME : Routes.LOGIN;
-      _routeName = Routes.LOGIN;
+      _routeName = Routes.HOME;
       // //_routeName = user != null ? Routes.CTRINVENTARIO : Routes.LOGIN;
       notify();
     });

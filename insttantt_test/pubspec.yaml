@@ -38,6 +38,9 @@ dependencies:
   #Gestor de Estados, Injection por Meedu
   flutter_meedu: ^5.3.1
   flutter_riverpod: ^2.5.1
+  #data base
+  sqflite: ^2.3.2
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter_meedu/meedu.dart';
+import 'package:insttantt_test/app/routes/routes.dart';
 
 class SplashController extends SimpleNotifier {
   //final _authRepository = Get.i.find<AuthenticationRepository>();
@@ -14,8 +15,9 @@ class SplashController extends SimpleNotifier {
     Future.delayed(const Duration(milliseconds: 4000), () async {
       // final user = await _authRepository.user;
       // _routeName = user != null ? Routes.HOME : Routes.LOGIN;
+      _routeName = Routes.HOME;
       // //_routeName = user != null ? Routes.CTRINVENTARIO : Routes.LOGIN;
-      // notify();
+      notify();
     });
   }
 

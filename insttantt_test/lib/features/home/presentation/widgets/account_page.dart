@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:icon_badge/icon_badge.dart';
 import 'package:insttantt_test/global/themes/app_themes_colors.dart';
 
-class DailyPage extends StatefulWidget {
-  const DailyPage({super.key});
+class AcountPage extends StatefulWidget {
+  const AcountPage({super.key});
 
   @override
-  State<DailyPage> createState() => _DailyPageState();
+  State<AcountPage> createState() => _AcountPageState();
 }
 
-class _DailyPageState extends State<DailyPage> {
+class _AcountPageState extends State<AcountPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -167,54 +167,6 @@ class _DailyPageState extends State<DailyPage> {
                   )
                 ],
               ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text("Overview",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: ThemeColor.primaryApp,
-                            )),
-                        IconBadge(
-                          icon: Icon(Icons.notifications_none),
-                          itemCount: 1,
-                          badgeColor: Colors.red,
-                          itemColor: ThemeColor.primaryApp,
-                          hideZero: true,
-                          top: -1,
-                          onTap: () {
-                            print('test');
-                          },
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                // Text("Overview",
-                //     style: TextStyle(
-                //       fontWeight: FontWeight.bold,
-                //       fontSize: 20,
-                //       color: mainFontColor,
-                //     )),
-                Text("Jan 16, 2023",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13,
-                      color: ThemeColor.secundaryApp,
-                    )),
-              ],
             ),
           ),
           SizedBox(

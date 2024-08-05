@@ -1,8 +1,8 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:insttantt_test/features/home/presentation/widgets/daily_page.dart';
-import 'package:insttantt_test/features/home/presentation/widgets/transection_page.dart';
+import 'package:insttantt_test/features/home/presentation/widgets/account_page.dart';
+import 'package:insttantt_test/features/home/presentation/widgets/contacts_page.dart';
 import 'package:insttantt_test/global/themes/app_themes_colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,32 +16,27 @@ class _HomePageState extends State<HomePage> {
   int pageIndex = 0;
 
   List<Widget> pages = [
-    DailyPage(),
-    TransectionPage(),
-    TransectionPage(),
-    TransectionPage(),
-    TransectionPage(),
+    const AcountPage(),
+    const ContactsPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeColor.primaryApp,
+      backgroundColor: ThemeColor.secundaryApp,
       body: getBody(),
       bottomNavigationBar: getFooter(),
       floatingActionButton: SafeArea(
         child: SizedBox(
-          // height: 30,
-          // width: 40,
           child: FloatingActionButton(
             onPressed: () {},
-            child: Icon(
-              Icons.add,
-              size: 20,
+            backgroundColor: ThemeColor.white,
+            child: Image.asset(
+              'assets/images/logo2.png',
+              fit: BoxFit.fitWidth,
+              height: 60,
+              width: 60,
             ),
-            backgroundColor: ThemeColor.primaryApp,
-            // shape:
-            //     BeveledRectangleBorder(borderRadius: BorderRadius.circular(4)),
           ),
         ),
       ),
@@ -59,12 +54,10 @@ class _HomePageState extends State<HomePage> {
   Widget getFooter() {
     List<IconData> iconItems = [
       CupertinoIcons.home,
-      CupertinoIcons.creditcard,
-      CupertinoIcons.money_dollar,
       CupertinoIcons.person,
     ];
     return AnimatedBottomNavigationBar(
-        backgroundColor: ThemeColor.primaryApp,
+        backgroundColor: ThemeColor.white,
         icons: iconItems,
         splashColor: ThemeColor.secundaryApp,
         inactiveColor: ThemeColor.black.withOpacity(0.5),

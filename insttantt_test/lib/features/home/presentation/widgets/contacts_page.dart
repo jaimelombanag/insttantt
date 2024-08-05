@@ -2,22 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:insttantt_test/global/themes/app_themes_colors.dart';
 
-class TransectionPage extends StatefulWidget {
-  const TransectionPage({super.key});
+class ContactsPage extends StatefulWidget {
+  const ContactsPage({super.key});
 
   @override
-  State<TransectionPage> createState() => _TransectionPageState();
+  State<ContactsPage> createState() => _ContactsPageState();
 }
 
-class _TransectionPageState extends State<TransectionPage> {
+class _ContactsPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: Icon(CupertinoIcons.back,color: black,),
-      //   actions: [Icon(CupertinoIcons.search,color: black,)],
-      //   backgroundColor: primary,elevation: 0,),
-      backgroundColor: ThemeColor.primaryApp,
+      backgroundColor: ThemeColor.secundaryApp,
       body: getBody(),
     );
   }

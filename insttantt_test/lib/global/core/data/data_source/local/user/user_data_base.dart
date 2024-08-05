@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:insttantt_test/global/constants/comun_names.dart';
 import 'package:insttantt_test/global/core/domain/models/user.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 @immutable
 class UserDatabase {
-  static const String _databaseName = 'user.db';
-  static const int _databaseVersion = 1;
+  static const String _databaseName = ComunNamesConst.nameDBuser;
+  static const int _databaseVersion = ComunNamesConst.versionDBuser;
 
   // Create a singleton
   const UserDatabase._privateConstructor();
@@ -74,6 +75,24 @@ class UserDatabase {
       return User.fromMap(userData.first);
     } else {
       throw Exception('Could not find a user with the given ID');
+    }
+  }
+
+  Future<User> readUserEmail(String email) async {
+    final db = await instance.database;
+
+    final userData = await db.query(
+      userTable,
+      columns: UserFields.values,
+      where: '${UserFields.email} = ?',
+      whereArgs: [email],
+    );
+
+    if (userData.isNotEmpty) {
+      return User.fromMap(userData.first);
+    } else {
+      return const User(name: '', email: '');
+      //throw Exception('Could not find a user with the given ID');
     }
   }
 

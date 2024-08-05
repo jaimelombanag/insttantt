@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:icon_badge/icon_badge.dart';
 import 'package:insttantt_test/global/themes/app_themes_colors.dart';
 
 class AcountPage extends StatefulWidget {

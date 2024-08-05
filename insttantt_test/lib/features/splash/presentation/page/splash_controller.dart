@@ -1,8 +1,10 @@
 import 'package:flutter_meedu/meedu.dart';
 import 'package:insttantt_test/app/routes/routes.dart';
+import 'package:insttantt_test/features/splash/domain/repositories/data_base_exist_repository.dart';
+import 'package:insttantt_test/global/constants/comun_names.dart';
 
 class SplashController extends SimpleNotifier {
-  //final _authRepository = Get.i.find<AuthenticationRepository>();
+  final _existDataBase = Get.i.find<DataBaseExistRepository>();
 
   String? _routeName;
   String? get routeName => _routeName;
@@ -13,10 +15,13 @@ class SplashController extends SimpleNotifier {
 
   void _init() async {
     Future.delayed(const Duration(milliseconds: 4000), () async {
-      // final user = await _authRepository.user;
-      // _routeName = user != null ? Routes.HOME : Routes.LOGIN;
-      _routeName = Routes.HOME;
-      // //_routeName = user != null ? Routes.CTRINVENTARIO : Routes.LOGIN;
+      final isuser =
+          await _existDataBase.existDataBase(ComunNamesConst.nameDBuser);
+      if (isuser) {
+        _routeName = Routes.HOME;
+      } else {
+        _routeName = Routes.LOGIN;
+      }
       notify();
     });
   }

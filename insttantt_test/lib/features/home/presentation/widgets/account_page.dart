@@ -1,24 +1,49 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+import 'package:insttantt_test/global/core/domain/models/user.dart';
 import 'package:insttantt_test/global/themes/app_themes_colors.dart';
 
 class AcountPage extends StatefulWidget {
-  const AcountPage({super.key});
+  User user;
+  // ignore: use_super_parameters
+  AcountPage({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
 
   @override
   State<AcountPage> createState() => _AcountPageState();
 }
 
 class _AcountPageState extends State<AcountPage> {
+  XFile? _image; // XFile is used to handle image files
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage(ImageSource source) async {
+    final XFile? image = await _picker.pickImage(source: source);
+    setState(() {
+      _image = image;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<String> nameParts = widget.user.name.split(' ');
+    String initials = nameParts.first[0];
     var size = MediaQuery.of(context).size;
     return SafeArea(
         child: SingleChildScrollView(
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 10),
+            margin:
+                const EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 10),
             decoration: BoxDecoration(
                 color: ThemeColor.white,
                 borderRadius: BorderRadius.circular(25),
@@ -35,43 +60,76 @@ class _AcountPageState extends State<AcountPage> {
                   top: 20, bottom: 25, right: 20, left: 20),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Icon(Icons.bar_chart), Icon(Icons.more_vert)],
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Cerrar Sesion',
+                        style: TextStyle(
+                          color: ThemeColor.primaryApp,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          decorationColor: ThemeColor
+                              .primaryApp, // Cambia el color del subrayado aquí
+                          decorationThickness: 2.0,
+                        ),
+                      ),
+                    ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Column(
                     children: [
-                      Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
-                                fit: BoxFit.cover)),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          _image == null
+                              ? CircleAvatar(
+                                  radius: 30, // Tamaño del avatar
+                                  backgroundColor:
+                                      Colors.blue, // Color de fondo del avatar
+                                  child: Text(
+                                    initials.toUpperCase(),
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                )
+                              : Image.file(
+                                  File(_image!.path),
+                                  height: 200,
+                                ),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () => _pickImage(ImageSource.gallery),
+                            child: Text('Pick Image from Gallery'),
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () => _pickImage(ImageSource.camera),
+                            child: Text('Take Photo with Camera'),
+                          ),
+                        ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Container(
+                      SizedBox(
                         width: (size.width - 40) * 0.6,
                         child: Column(
                           children: [
                             Text(
-                              "Abbie Wilson",
-                              style: TextStyle(
+                              widget.user.name,
+                              style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: ThemeColor.primaryApp),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            Text(
+                            const Text(
                               "Software Developer",
                               style: TextStyle(
                                   fontSize: 13,
@@ -83,13 +141,13 @@ class _AcountPageState extends State<AcountPage> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Column(
+                      const Column(
                         children: [
                           Text(
                             "\$8900",
@@ -115,7 +173,7 @@ class _AcountPageState extends State<AcountPage> {
                         height: 40,
                         color: ThemeColor.black.withOpacity(0.3),
                       ),
-                      Column(
+                      const Column(
                         children: [
                           Text(
                             "\$5500",
@@ -141,7 +199,7 @@ class _AcountPageState extends State<AcountPage> {
                         height: 40,
                         color: ThemeColor.black.withOpacity(0.3),
                       ),
-                      Column(
+                      const Column(
                         children: [
                           Text(
                             "\$890",
@@ -168,7 +226,7 @@ class _AcountPageState extends State<AcountPage> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Padding(
@@ -179,7 +237,7 @@ class _AcountPageState extends State<AcountPage> {
                   children: [
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 20,
                           left: 25,
                           right: 25,
@@ -209,14 +267,14 @@ class _AcountPageState extends State<AcountPage> {
                                   borderRadius: BorderRadius.circular(15),
                                   // shape: BoxShape.circle
                                 ),
-                                child: Center(
+                                child: const Center(
                                     child: Icon(Icons.arrow_upward_rounded)),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               Expanded(
-                                child: Container(
+                                child: SizedBox(
                                   width: (size.width - 90) * 0.7,
                                   child: Column(
                                       mainAxisAlignment:
@@ -224,14 +282,14 @@ class _AcountPageState extends State<AcountPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Sent",
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: ThemeColor.secundaryApp,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -245,20 +303,18 @@ class _AcountPageState extends State<AcountPage> {
                                       ]),
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "\$150",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: ThemeColor.black),
-                                      )
-                                    ],
-                                  ),
+                              const Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "\$150",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: ThemeColor.black),
+                                    )
+                                  ],
                                 ),
                               )
                             ],
@@ -268,14 +324,14 @@ class _AcountPageState extends State<AcountPage> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 10,
                           left: 25,
                           right: 25,
@@ -304,14 +360,14 @@ class _AcountPageState extends State<AcountPage> {
                                   borderRadius: BorderRadius.circular(15),
                                   // shape: BoxShape.circle
                                 ),
-                                child: Center(
+                                child: const Center(
                                     child: Icon(Icons.arrow_downward_rounded)),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               Expanded(
-                                child: Container(
+                                child: SizedBox(
                                   width: (size.width - 90) * 0.7,
                                   child: Column(
                                       mainAxisAlignment:
@@ -319,14 +375,14 @@ class _AcountPageState extends State<AcountPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Receive",
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: ThemeColor.black,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -340,20 +396,18 @@ class _AcountPageState extends State<AcountPage> {
                                       ]),
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "\$250",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: ThemeColor.black),
-                                      )
-                                    ],
-                                  ),
+                              const Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "\$250",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: ThemeColor.black),
+                                    )
+                                  ],
                                 ),
                               )
                             ],
@@ -363,14 +417,14 @@ class _AcountPageState extends State<AcountPage> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 10,
                           left: 25,
                           right: 25,
@@ -396,18 +450,18 @@ class _AcountPageState extends State<AcountPage> {
                                 width: 50,
                                 height: 50,
                                 decoration: BoxDecoration(
-                                  color: ThemeColor.primaryApp,
+                                  color: ThemeColor.secundaryApp,
                                   borderRadius: BorderRadius.circular(15),
                                   // shape: BoxShape.circle
                                 ),
-                                child: Center(
+                                child: const Center(
                                     child: Icon(CupertinoIcons.money_dollar)),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               Expanded(
-                                child: Container(
+                                child: SizedBox(
                                   width: (size.width - 90) * 0.7,
                                   child: Column(
                                       mainAxisAlignment:
@@ -415,14 +469,14 @@ class _AcountPageState extends State<AcountPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Loan",
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: ThemeColor.black,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -436,20 +490,18 @@ class _AcountPageState extends State<AcountPage> {
                                       ]),
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "\$400",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: ThemeColor.black),
-                                      )
-                                    ],
-                                  ),
+                              const Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "\$400",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: ThemeColor.black),
+                                    )
+                                  ],
                                 ),
                               )
                             ],

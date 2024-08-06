@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:insttantt_test/features/home/presentation/widgets/account_page.dart';
 import 'package:insttantt_test/features/home/presentation/widgets/contacts_page.dart';
+import 'package:insttantt_test/global/core/domain/models/user.dart';
 import 'package:insttantt_test/global/themes/app_themes_colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,16 +16,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int pageIndex = 0;
 
-  List<Widget> pages = [
-    const AcountPage(),
-    const ContactsPage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final User user = ModalRoute.of(context)!.settings.arguments as User;
     return Scaffold(
       backgroundColor: ThemeColor.secundaryApp,
-      body: getBody(),
+      body: getBody(user),
       bottomNavigationBar: getFooter(),
       floatingActionButton: SafeArea(
         child: SizedBox(
@@ -44,7 +41,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget getBody() {
+  Widget getBody(User user) {
+    List<Widget> pages = [
+      AcountPage(user: user),
+      const ContactsPage(),
+    ];
     return IndexedStack(
       index: pageIndex,
       children: pages,

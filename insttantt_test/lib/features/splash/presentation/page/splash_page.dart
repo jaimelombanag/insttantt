@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_meedu/meedu.dart';
 import 'package:flutter_meedu/state.dart';
 import 'package:flutter_meedu/router.dart' as router;
-import 'package:insttantt_test/features/splash/presentation/page/splash_controller.dart';
+import 'package:insttantt_test/features/splash/presentation/controller/splash_controller.dart';
 import 'package:insttantt_test/global/themes/app_themes_colors.dart';
 
 final splashProvider = SimpleProvider((_) => SplashController(),

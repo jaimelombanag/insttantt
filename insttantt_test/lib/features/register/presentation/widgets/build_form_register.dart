@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_meedu/flutter_meedu.dart';
-import 'package:insttantt_test/features/login/presentation/controller/login_controller.dart';
+import 'package:insttantt_test/features/register/presentation/controller/register_controller.dart';
 import 'package:insttantt_test/global/constants/comun_names.dart';
+import 'package:insttantt_test/global/core/domain/models/user.dart';
 import 'package:insttantt_test/global/themes/app_themes_colors.dart';
 import 'package:insttantt_test/global/utils/validate_forms.dart';
 import 'package:flutter_meedu/router.dart' as router;
 
-final loginProvider = SimpleProvider((_) => LoginController(),
+final registerProvider = SimpleProvider((_) => RegisterController(),
     autoDispose: true //Si se deja false no destrulle el controller
     );
 
-class FormLogin extends StatelessWidget {
-  const FormLogin({
+class FormRegister extends StatelessWidget {
+  const FormRegister({
     super.key,
   });
 
-  //final GlobalKey<FormState> _formKey;
-
   @override
   Widget build(BuildContext context) {
+    final TextEditingController nameController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+    final TextEditingController confirPasswordController =
+        TextEditingController();
     final formKey = GlobalKey<FormState>();
 
     return Card(
@@ -45,11 +47,28 @@ class FormLogin extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextFormField(
+                controller: nameController,
+                maxLength: ComunNamesConst.maxCharacterName,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(
+                    FeatherIcons.user,
+                    color: ThemeColor.secundaryApp,
+                    size: 20,
+                  ),
+                  labelText: 'Ingresa tu Nombre',
+                  labelStyle: TextStyle(
+                    color: ThemeColor
+                        .secundaryApp, // Cambia el color del label aquí
+                  ),
+                ),
+                validator: validateName,
+              ),
+              TextFormField(
                 controller: emailController,
                 maxLength: ComunNamesConst.maxCharacterEmail,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(
-                    FeatherIcons.user,
+                    FeatherIcons.atSign,
                     color: ThemeColor.secundaryApp,
                     size: 20,
                   ),
@@ -79,8 +98,34 @@ class FormLogin extends StatelessWidget {
                 obscureText: true,
                 validator: validatePassword,
               ),
-              ProviderListener<LoginController>(
-                provider: loginProvider,
+              TextFormField(
+                controller: confirPasswordController,
+                maxLength: ComunNamesConst.maxCharacterPassword,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(
+                    FeatherIcons.lock,
+                    color: ThemeColor.secundaryApp,
+                    size: 20,
+                  ),
+                  labelText: 'Repita su contraseña',
+                  labelStyle: TextStyle(
+                    color: ThemeColor
+                        .secundaryApp, // Cambia el color del label aquí
+                  ),
+                ),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor confirma tu contraseña';
+                  }
+                  if (value != passwordController.text) {
+                    return 'Las contraseñas no coinciden';
+                  }
+                  return null;
+                },
+              ),
+              ProviderListener<RegisterController>(
+                provider: registerProvider,
                 onChange: (_, controller) {
                   final routeName = controller.routeName;
                   if (routeName != null) {
@@ -94,8 +139,15 @@ class FormLogin extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            controller.LoginUser(
-                                emailController.text, passwordController.text);
+                            debugPrint('--Name: ${nameController.text}');
+                            debugPrint('--Email: ${emailController.text}');
+                            debugPrint('--Pass: ${passwordController.text}');
+                            User user = User(
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                            );
+                            controller.registerUser(user);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('Processing Data')),
                             );
@@ -113,11 +165,41 @@ class FormLogin extends StatelessWidget {
                           elevation: WidgetStateProperty.all<double>(0.1),
                         ),
                         child: const Text(
-                          'Ingresar',
+                          'Registrar',
                           style: TextStyle(
                               color: ThemeColor.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              ProviderListener<RegisterController>(
+                provider: registerProvider,
+                onChange: (_, controller) {
+                  final routeName = controller.routeName;
+                  if (routeName != null) {
+                    router.pushReplacementNamed(routeName);
+                  }
+                },
+                builder: (_, controller) {
+                  return SizedBox(
+                    height: 40,
+                    child: TextButton(
+                      onPressed: () {
+                        controller.goLogin();
+                      },
+                      child: const Text(
+                        'Ingreso',
+                        style: TextStyle(
+                          color: ThemeColor.primaryApp,
+                          fontSize: 15,
+                          decoration: TextDecoration.underline,
+                          decorationColor: ThemeColor
+                              .primaryApp, // Cambia el color del subrayado aquí
+                          decorationThickness: 2.0, // Grosor del subrayado
                         ),
                       ),
                     ),

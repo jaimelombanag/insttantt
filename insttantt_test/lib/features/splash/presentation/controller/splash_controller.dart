@@ -20,7 +20,7 @@ class SplashController extends SimpleNotifier {
       if (isuser) {
         _routeName = Routes.HOME;
       } else {
-        _routeName = Routes.LOGIN;
+        _routeName = Routes.REGISTER;
       }
       notify();
     });

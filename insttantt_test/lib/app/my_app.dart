@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: router.navigatorKey,
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.SPLASH,
-      theme: ThemeData(primarySwatch: Colors.green),
+      theme: ThemeData(primarySwatch: Colors.red),
       navigatorObservers: [
         router.observer,
       ],

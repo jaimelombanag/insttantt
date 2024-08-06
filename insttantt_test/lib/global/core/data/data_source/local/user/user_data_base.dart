@@ -44,7 +44,7 @@ class UserDatabase {
         ${UserFields.id} $idType,
         ${UserFields.name} $textType,
         ${UserFields.email} $textType,
-        ${UserFields.password} $textType,
+        ${UserFields.password} $textType
       )
       ''');
   }
@@ -78,6 +78,19 @@ class UserDatabase {
     }
   }
 
+  Future<User?> getUser(String email, String password) async {
+    final db = await instance.database;
+    List<Map<String, dynamic>> result = await db.query(
+      'user',
+      where: 'email = ? AND password = ?',
+      whereArgs: [email, password],
+    );
+    if (result.isNotEmpty) {
+      return User.fromMap(result.first);
+    }
+    return null;
+  }
+
   Future<User> readUserEmail(String email) async {
     final db = await instance.database;
 
@@ -91,7 +104,7 @@ class UserDatabase {
     if (userData.isNotEmpty) {
       return User.fromMap(userData.first);
     } else {
-      return const User(name: '', email: '');
+      return const User(name: '', email: '', password: '');
       //throw Exception('Could not find a user with the given ID');
     }
   }

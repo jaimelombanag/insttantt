@@ -47,8 +47,9 @@ class HomeController extends SimpleNotifier {
 
   void sessionClose() async {
     var close = await _sessionClose.sessionCloseContct();
-    if (close) {
+    if (close == 1) {
       _routeName = Routes.LOGIN;
+      notify();
     } else {
       Fluttertoast.showToast(
           msg: "¡No fue posible cerrar sesión.!",

@@ -3,7 +3,7 @@ import 'package:insttantt_test/features/home/domain/repositories/session_close_r
 
 class SessionCloseRepositoryImpl implements SessionCloseRepository {
   @override
-  Future<bool> sessionCloseContct() {
+  Future<int> sessionCloseContct() {
     return SessionCloseDB().sessionCloseDB();
   }
 }

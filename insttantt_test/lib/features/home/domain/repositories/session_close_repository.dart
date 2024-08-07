@@ -1,3 +1,3 @@
 abstract class SessionCloseRepository {
-  Future<bool> sessionCloseContct();
+  Future<int> sessionCloseContct();
 }

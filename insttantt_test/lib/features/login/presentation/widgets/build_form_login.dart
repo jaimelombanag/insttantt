@@ -84,7 +84,8 @@ class FormLogin extends StatelessWidget {
                 onChange: (_, controller) {
                   final routeName = controller.routeName;
                   if (routeName != null) {
-                    router.pushReplacementNamed(routeName);
+                    router.pushReplacementNamed(routeName,
+                        arguments: controller.user);
                   }
                 },
                 builder: (_, controller) {

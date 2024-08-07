@@ -149,7 +149,7 @@ class FormRegister extends StatelessWidget {
                             );
                             controller.registerUser(user);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Processing Data')),
+                              const SnackBar(content: Text('Processing Data')),
                             );
                           }
                         },

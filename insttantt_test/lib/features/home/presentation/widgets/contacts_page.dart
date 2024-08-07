@@ -96,6 +96,8 @@ class _ContactsPageState extends State<ContactsPage> {
                                     name: nameController.text,
                                     identification: identificacion);
                                 controller.addContacts(contact);
+                                nameController.text = '';
+                                identificationController.text = '';
                                 Navigator.of(context).pop();
                               }
                             },

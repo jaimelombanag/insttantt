@@ -13,6 +13,7 @@ class LoginController extends SimpleNotifier {
   User? _user;
   User? get user => _user;
 
+  // ignore: non_constant_identifier_names
   Future<void> LoginUser(String email, String password) async {
     var userSave = await _loginUser.loginUser(email, password);
     if (userSave != null) {

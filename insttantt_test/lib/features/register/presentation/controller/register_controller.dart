@@ -42,9 +42,4 @@ class RegisterController extends SimpleNotifier {
     _routeName = Routes.LOGIN;
     notify();
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

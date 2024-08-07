@@ -97,9 +97,6 @@ class FormLogin extends StatelessWidget {
                           if (formKey.currentState!.validate()) {
                             controller.LoginUser(
                                 emailController.text, passwordController.text);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Processing Data')),
-                            );
                           }
                         },
                         style: ButtonStyle(

@@ -30,9 +30,4 @@ class SplashController extends SimpleNotifier {
       notify();
     });
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

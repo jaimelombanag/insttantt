@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final homeProvider = SimpleProvider((_) => HomeController(), autoDispose: true);
 
+// ignore: must_be_immutable
 class AcountPage extends StatefulWidget {
   User user;
   // ignore: use_super_parameters

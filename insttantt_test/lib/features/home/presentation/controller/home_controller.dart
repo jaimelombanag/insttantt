@@ -62,9 +62,4 @@ class HomeController extends SimpleNotifier {
           fontSize: 16.0);
     }
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

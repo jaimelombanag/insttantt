@@ -43,12 +43,29 @@ String? validatePassword(String? value) {
   return null;
 }
 
-String? validateConfirmPassword(String? value) {
-  // if (value == null || value.isEmpty) {
-  //   return 'Por favor confirma tu contraseña';
-  // }
-  // if (value != _passwordController.text) {
-  //   return 'Las contraseñas no coinciden';
-  // }
-  // return null;
+String? validateNameContact(String? value) {
+  if (value == null || value.isEmpty) {
+    return ComunNamesConst.validateName;
+  }
+  final nameRegex = RegExp(r'^[a-zA-Z\s]+$');
+  if (!nameRegex.hasMatch(value)) {
+    return 'El nombre no debe contener números ni caracteres especiales';
+  }
+  if (value.length < 2) {
+    return 'El nombre debe contener mas de 2 caracteres';
+  }
+  return null;
+}
+
+String? validateIdentification(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter some text';
+  }
+  if (!RegExp(r'^\d+$').hasMatch(value)) {
+    return 'Please enter only numbers';
+  }
+  if (value.length < 7) {
+    return 'La identificación debe contener mas de 6 caracteres';
+  }
+  return null;
 }

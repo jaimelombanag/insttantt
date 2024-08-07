@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:insttantt_test/features/contacts/domain/models/contact.dart';
+import 'package:insttantt_test/features/home/domain/models/contact.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

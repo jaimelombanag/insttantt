@@ -10,6 +10,8 @@ class ComunNamesConst {
   static const int maxCharacterName = 50;
   static const int maxCharacterEmail = 50;
   static const int maxCharacterPassword = 60;
+  static const int maxCharacterIdentification = 10;
+  static const String keyPathImage = 'avatar_image_path';
 
   ComunNamesConst._();
 }
